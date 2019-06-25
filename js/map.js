@@ -34,6 +34,7 @@ function initMap() {
         .addTo(map);
     }
   }
+  //just test
 
 window.onload = function(){
     initMap();
