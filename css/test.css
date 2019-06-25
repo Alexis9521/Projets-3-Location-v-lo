@@ -1,0 +1,117 @@
+body{
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 auto;
+
+}
+
+header{
+
+  margin-bottom: 15em;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+
+}
+
+img{
+
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+
+}
+
+#map{
+
+  width: 100%;
+  height: 700px;
+
+}
+
+footer{
+
+  height: 200px;
+  background-color: black;
+  margin-top: 100px;
+}
+
+.slide{
+
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  z-index: 1;
+
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -o-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.showing{
+
+  opacity: 1;
+  z-index: 2;
+
+}
+
+.controls{
+
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+
+}
+
+#bouton_left{
+
+  position: absolute;
+  top: 200px;
+  left: 0;
+  z-index: 15;
+
+}
+
+#bouton_right{
+
+  position: absolute;
+  top: 200px;
+  z-index: 15;
+  right: 0px;
+
+}
+
+#pause{
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 15;
+
+}
+
+.text_slid{
+
+  position: absolute;
+  top: 200px;
+  left: 270px;
+  z-index: 15;
+  margin: 0;
+
+}
+
+h1, h2, h3, h4{
+
+  font-size: 1.8em;
+
+}

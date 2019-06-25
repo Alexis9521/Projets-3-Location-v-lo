@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Location de vélo</title>
+    <link rel="stylesheet" href="../css/test.css" /> <!-- Changé adresse dossier -->
+    <!--script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script--> <!-- Api carte OpenLayer -->
+    <!--link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/--> <!--  Api carte OpenLayer -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" /> <!-- Fontawesome -->
+
+
+  </head>
+
+  <body>
+    <header>
+      <section id="slides">
+        <artcile class="slide showing">
+          <img src="../images/imagevelo1.jpg"/> <!-- Slid n°1 -->
+          <div class="text_slid">
+            <h2>Etape 1 :</h2>
+            <p>test du texte</p>
+          </div>
+        </artcile>
+        <artcile class="slide">
+          <img src="../images/imagevelo2.jpg"/> <!-- Slid n°2 -->
+          <div class="text_slid">
+            <h2>Etape 2 :</h2>
+            <p>test du texte</p>
+          </div>
+        </artcile>
+        <artcile class="slide">
+          <img src="../images/imagevelo3.jpg"/> <!-- Slid n°3 -->
+          <div class="text_slid">
+            <h2>Etape 3 :</h2>
+            <p>test du text</p>
+          </div>
+        </artcile>
+        <artcile class="slide">
+          <img src="../images/imagevelo4.jpg"/> <!-- Slid n°4 -->
+          <div class="text_slid">
+            <h2>Etape 4 :</h2>
+            <p>test du text</p>
+          </div>
+        </artcile>
+      </section>
+
+      <button class="controls" id="pause">&#10074;&#10074;</button> <!-- Bouton pause -->
+      <button class="controls" id="bouton_left"><i class="fas fa-angle-left"></i></button><!-- Bouton précédent -->
+      <button class="controls" id="bouton_right"><i class="fas fa-angle-right"></i></button><!-- Bouton suivant -->
+
+    </header>
+
+
+    <section id="carte"> <!-- Section carte -->
+      <div id="map"></div> <!-- Api carte OpenLayer -->
+    </section>
+
+    <section id="formulaire"> <!-- Section formulaire -->
+      <form>
+        <canvas id="canvas"></canvas> <!-- Api html canvas -->
+      </form>
+    </section>
+
+    <footer>
+    </footer>
+
+    <script src="../js/api_jcdecaux_ajax.js"></script>
+    <script src="../js/velo.js"></script>
+    <script src="../js/map.js"></script> <!-- Api carte OpenLayer -->
+    <script src="../js/canvas.js"></script> <!-- Api html canvas -->
+    <script src="../js/slider.js" charset="utf-8"></script> <!-- Script Slider -->
+
+  </body>
+</html>
