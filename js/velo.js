@@ -1,55 +1,159 @@
-/*
-function afficher(reponse) {
-  let infos = JSON.parse(reponse);
-  infos.forEach(element => {
-*/
-var stationsTab = [];
+// Classe réservation
 
-// ATTRIBUTION DE CHAQUE ATTRIBUT A UN OUVEL OBJET "STATION" POUR CHAQUE ELEMENT DE DATA
-getInfos().then(function(data){
-    data.forEach(function(info){
-            var station =
-              {
+class ResaClass {
 
-                  //numeroStation : info.number,
-                  //nomContrat : info.contract_name,
-                  //nomStation : info.name,
-                  //adresseStation : info.address,
-                  //positionStation : info.position,
-                  //bornePaiement : info.banking,
-                  //bonus : info.bonus,
-                  //nbrMaxVelos : info.bike_stands,
-                  //retourVelo : info.available_bike_stands,
-                  //velosRestants : info.available_bikes,
-                  //derniereMAJ : info.last_update,
-                  //status : info.status
-              };
-        // ON RANGE LES STATIONS DANS UN TABLEAU
-            stationsTab.push(station);
+  constructor(form, timer, canvas) {
 
-  })
-    console.log(stationsTab);
-})
+    this.form = $(form); // ID du formulaire
+    this.timer = timer; // temps du décompte en millisecondes (ex. 20min = 20*60*1000)
+    this.canvas = canvas; // permet de récupérer les valeurs de la classe Canvas (ex. this.canvas.ctx = le contexte du canvas)
+    this.beforeForm = $('#container_reserv'); // message avant l'apparition du formulaire
+    this.formName = this.form.find('#name'); // input name du formulaire
+    this.formFirstName = this.form.find('#firstname'); // input firstname du formulaire
+    this.intervalResa = null;
+    this.stopTimer = null;
+    this.regexResa = /......../;
+    this.documentHeight = $(document).height();
+    this.initSettings();
+  }; // fin du constructor
 
+  // Initialisation localStorage canvas
 
+  initSettings() {
 
+    $(document).ready(($) => { // Quand le DOM est prêt...
 
-/*
-    let tabStation = [];
-     let station =
-      {
+      if (!localStorage.name) { // s'il n'y a pas d'élément name, on laisse l'utilisateur faire
+      } else { // si l'élément est présent (sauvegardé), on active les changements sauvegardés
+        this.setStyles();
+      }
 
-        nomStation : info.name,
-        positionStation : info.position
+      if (!sessionStorage.stoptimer) { // s'il n'y a pas d'élément stopTimer, on laisse l'utilisateur faire
+      } else { // si l'élément est présent (réservation en cours), on ré-active le compte à rebours
+        this.stopTimer = sessionStorage.stoptimer;
+        $('#form_confirm').css('display', 'block');
+        $('#confirm_station').html(`${sessionStorage.station}`);
+        $('#confirm_name').html(`${localStorage.firstname} ${localStorage.name}`);
 
+        this.loopTimer();
+
+        this.documentHeight = $(document).height();
+        $('html, body').animate({
+          scrollTop: this.documentHeight
+        }, 1000); // descend la fenêtre de navigation à hauteur des informations de réservation
       };
+    });
 
-      tabStation.push(station);
+    this.form.submit((event) => { // au submit du formulaire, déclencher...
+      event.preventDefault();
+      this.canvas.canvasContainer.css('display', 'block'); // lancer le bloc canvas
+      this.canvas.resize();
+      this.beforeForm = $('#container_reserv');
+      $('#confirm_station').html(this.beforeForm.text().replace(this.regexResa, ''));
+      $('#confirm_name').html(`${this.formFirstName.val()} ${this.formName.val()}`);
+      clearInterval(this.intervalResa);
+      $('#timer').html("");
+      this.documentHeight = $(document).height();
+      $('html, body').animate({ // pour les mobiles, scroll down jusqu'au canvas
+        scrollTop: $("#message_canvas").offset().top
+      }, 1000);
+    });
+
+    this.canvas.clear.click((e) => {
+      clearInterval(this.intervalResa);
+      $('#timer').html("");
+      this.canvas.ctx.clearRect(0, 0, this.canvas.canvas.width(), this.canvas.canvas.height());
+      this.canvas.canvasFilled = false;
+    });
+
+    this.canvas.submit.click((e) => { // à la validation du canvas
+      e.preventDefault();
+      if (!this.canvas.canvasFilled) { // si le canvas n'est pas rempli...
+        alert("Il manque votre signature !");
+      } else { // si le canvas est rempli
+        this.stopTimer = new Date().getTime() + this.timer; // le temps du clic + 20*minutes
+        sessionStorage.stoptimer = this.stopTimer; // enregistre (temporairement) la fin du décompte
 
 
-       console.log(tabStation);
-  });
-}
-    ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=8aa3c1a827af31bf41359b46b2394c247cc7ee0d", afficher);
+        this.populateStorage(); // on sauvegarde les identifiants
+        this.loopTimer(); // on active le compte à rebours
 
-*/
+        $('#form_confirm').css('display', 'block');
+        this.documentHeight = $(document).height();
+
+        $('html, body').animate({
+          scrollTop: this.documentHeight
+        }, 1000); // scroll down de la fenêtre de navigation
+
+        $(window).on('beforeunload', (event) => { // si l'utilisateur veut quitter l'onglet
+          event.preventDefault(); // on l'avertit de la perte des données
+        });
+      };
+    });
+  }
+
+  // Stockage des données
+
+  storageAvailable(type) {
+
+    try {
+      let storage = window[type],
+        x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    }
+    catch(e) {
+      return false;
+    }
+  };
+
+  // Timer pour réservation
+
+  loopTimer() {
+
+    this.intervalResa = setInterval( () => { // à chaque rappel :
+        let startTimer = new Date().getTime(); // le temps présent
+        let distance = this.stopTimer - startTimer; // la distance présent - fin de décompte
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); // le nombre de minutes restantes
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000); // le nombre de secondes restantes
+        $('#timer').html(`${minutes}m ${seconds}s`);
+
+        if (distance < 0) { // fin du décompte
+          clearInterval(this.intervalResa); // fin de la boucle
+          $('#form_confirm').css('display', 'none');
+          $('#form_exp').css('display', 'block');
+          sessionStorage.clear(); // supprime les valeurs temporaires
+        };
+      }, 1000);
+  };
+
+  // Enregistrement des valeurs
+
+  populateStorage() { // enregistrer des valeurs
+
+    localStorage.name = this.formName.val(); // enregistre la valeur nom
+    localStorage.firstname = this.formFirstName.val(); // enregistre la valeur prénom
+    sessionStorage.station = $('#confirm_station').text(); // enregistre (temporairement) la valeur station
+
+    this.setStyles();
+
+  };
+
+  // Obtenir les valeurs
+
+  setStyles() { // obtenir les valeurs
+
+    let currentName = localStorage.name;
+    let currentFirstname = localStorage.firstname;
+    let currentStation = sessionStorage.station;
+
+    this.formName.val(currentName);
+    this.formFirstName.val(currentFirstname);
+    $('#confirm_station').html(currentStation);
+
+
+  };
+
+}; // fin de la classe
+
