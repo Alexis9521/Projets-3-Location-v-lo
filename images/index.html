@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Location de vélo</title>
+    <meta name="descritpion" content="Consultez notre carte de location de vélos sur la ville de lyon vous pouvez faire le choix de votre station et réservé votre vélo" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:url" content="http://locationvélolyonp3.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Réservez votre vélo en libre service à Lyon" />
+    <meta property="og:description" content="Consultez notre carte de location de vélos sur la ville de lyon vous pouvez faire le choix de votre station et réservé votre vélo" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" /> <!-- Fontawesome -->
+
+  </head>
+
+  <body>
+    <h1> Location de vélo en libre service à Lyon </h1>
+    <header><!-- Header slider -->
+      <section id="slides">
+        <artcile class="slide showing">
+          <img class="imgslid" src="images/imagevelo1.jpg"/> <!-- Slid n°1 -->
+          <div class="text_slid">
+            <h2>Etape 1 :</h2>
+            <p><i class="fas fa-book-open"></i> Choisissez votre station</p>
+          </div>
+        </artcile>
+        <artcile class="slide">
+          <img class="imgslid" src="images/imagevelo2.jpg"/> <!-- Slid n°2 -->
+          <div class="text_slid">
+            <h2>Etape 2 :</h2>
+            <p><i class="fab fa-wpforms"></i> Remplissez le formulaire</p>
+          </div>
+        </artcile>
+        <artcile class="slide" >
+          <img class="imgslid" src="images/imagevelo3.jpg"/> <!-- Slid n°3 -->
+          <div class="text_slid">
+            <h2>Etape 3 :</h2>
+            <p><i class="fas fa-signature"></i> Signez et validé</p>
+          </div>
+        </artcile>
+        <artcile class="slide">
+          <img class="imgslid" src="images/imagevelo4.jpg"/> <!-- Slid n°4 -->
+          <div class="text_slid">
+            <h2>Etape 4 :</h2>
+            <p><i class="fas fa-bicycle"></i> Aller récupérer votre vélo</p>
+          </div>
+        </artcile>
+          <button class="controls" id="pause">&#10074;&#10074;</button> <!-- Bouton pause -->
+          <button class="controls" id="bouton_left"><i class="fas fa-angle-left"></i></button><!-- Bouton précédent -->
+          <button class="controls" id="bouton_right"><i class="fas fa-angle-right"></i></button><!-- Bouton suivant -->
+      </section>
+
+
+
+    </header>
+
+    <h3> Sélectionné la station qui vous convient </h3>
+
+    <section id="carte_velo">
+
+      <div id="map"></div> <!-- Api carte LeafletJs -->
+
+      <article id="formulaire">
+        <div id="container_reserv" class="presentation">
+          <p id="before_click">Séléctionner une station pour afficher les informations</p>
+          <ul>
+            <li id="marker_vert"><img class="img_marker" src="images/marker-green.png" />Station verte : Plus de 10 vélos disponibles</li>
+            <li id="marker_jaune"><img class="img_marker" src="images/marker-yellow.png" />Station jaune : Moin de 10 vélos disponibles</li>
+            <li id="marker_rouge"><img class="img_marker" src="images/marker-red.png" />Station rouge : Aucun vélo disponible</li>
+          </ul>
+        </div>
+        <div id="station_infos">
+          <p>Adresse :</p>
+          <p>Nombre de place :</p>
+          <p>Nombre de vélo disponible :</p>
+        </div>
+
+        <form id="formulaire_reserv">
+          <fieldset>
+            <legend>Réservez un vélo de la station séléctionné</legend>
+            <label for="name">Votre nom : </label><input type="text" name="name" id="name" placeholder="Votre nom" required/><br />
+            <label for="firstname"> Votre prénom : </label><input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br />
+            <input type="submit" name="submit" id="reservation" value="Réservez !">
+          </fieldset>
+        </form>
+        <p id="aucunvelo">Impossible de réserver aucun vélo n'est disponible</p>
+      </article>
+
+      <article id="canvas_container">
+        <div id="message_canvas">
+          <p>Signez le formulaire pour valider la réservation :</p>
+        </div>
+        <div id="canvas">
+          <canvas id="canvas_resa" width="200" height="200">Apposez votre signature (si vous voyez ce message, votre navigateur n'est pas à jour)</canvas>
+        </div>
+        <div id="confirm_canvas">
+          <button type="submit" id="submit_canvas">Validez !</button>
+          <button type="reset" id="clear_canvas">Annuler !</button>
+        </div>
+      </article>
+    </section>
+
+    <p id="form_confirm">Vélo réservé à la station <span id="confirm_station">STATION</span> par <span id="confirm_name">NAME</span><br />
+    Temps restant : <span id="timer"></span> avant l'expiration de la session</p>
+    <p id="form_exp">Réservation expirée</p>
+
+
+    <footer>
+
+      Site dévelopé dans le cadre d'une formation de dévellopeur web junior.
+
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <script src="js/main.js"></script><!-- Requête Ajax -->
+    <script src="js/velo.js"></script>
+    <script src="js/map.js"></script> <!-- Api Leaflet -->
+    <script src="js/canvas.js"></script> <!-- Api html canvas -->
+    <script src="js/slider.js"></script> <!-- Script Slider -->
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Location de vélo</title>
+    <meta name="descritpion" content="Consultez notre carte de location de vélos sur la ville de lyon vous pouvez faire le choix de votre station et réservé votre vélo" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:url" content="http://locationvélolyonp3.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Réservez votre vélo en libre service à Lyon" />
+    <meta property="og:description" content="Consultez notre carte de location de vélos sur la ville de lyon vous pouvez faire le choix de votre station et réservé votre vélo" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" /> <!-- Fontawesome -->
+    <link rel="stylesheet" type="text/css" href="css/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="css/MarkerCluster.default.css" />
+    <script src="js/leaflet.markercluster-src.js"></script>
+
+  </head>
+
+  <body>
+    <h1> Location de vélo en libre service à Lyon </h1>
+       <div id="slider_container">
+          <div class="slide"><svg class="slide_background"></svg><svg class="slide_svg"></svg><p class="slide_text"><span>1</span> Sélectionnez votre station</p><img src="images/imagevelo1.jpg" alt="Une carte des stations de vélos à Lyon"/></div>
+          <div class="slide"><svg class="slide_background"></svg><svg class="slide_svg"></svg><p class="slide_text"><span>2</span> Effectuez votre réservation</p><img src="images/imagevelo2.jpg" alt="Réservez votre vélo en remplissant le formulaire de notre site web"/></div>
+          <div class="slide"><svg class="slide_background"></svg><svg class="slide_svg"></svg><p class="slide_text"><span>3</span> Récupérez votre vélo !</p><img src="images/imagevelo3.jpg" alt="Récupérez votre vélo après votre réservation en ligne"/></div>
+          <!-- boutons précédent, suivant et pause -->
+          <a href="#void" id="slider_prev" title="Slide précédente"><span class="fas fa-angle-left"></span></a>
+          <a href="#void" id="slider_next" title="Slide suivante"><span class="fas fa-angle-right"></span></a>
+          <a href="#void" id="slider_pause" title="Pause/Reprendre"><span class="fas fa-pause"></span></a>
+          <!-- barre de progression -->
+          <div id="timeline_container"><div class="timeline" data-percent="100%"></div></div>
+          <!-- les points sous le slider -->
+          <div id="slider_dots">
+            <a href="#void" class="dot firstdot" title="Première slide"></a>
+            <a href="#void" class="dot seconddot" title="Seconde slide"></a>
+            <a href="#void" class="dot thirddot" title="Dernière slide"></a>
+          </div>
+      </div>
+    <h3> Séléctionnez la station qui vous convient </h3>
+
+    <section id="carte_velo">
+
+      <div id="map"></div> <!-- Api carte LeafletJs -->
+
+      <article id="formulaire">
+        <div id="container_reserv" class="presentation">
+          <p id="before_click">Séléctionnez une station pour afficher les informations</p>
+          <ul>
+            <li id="marker_vert"><img class="img_marker" src="images/marker-green.png" />Station verte : Plus de 10 vélos disponibles</li>
+            <li id="marker_jaune"><img class="img_marker" src="images/marker-yellow.png" />Station jaune : Moin de 10 vélos disponibles</li>
+            <li id="marker_rouge"><img class="img_marker" src="images/marker-red.png" />Station rouge : Aucun vélo disponible</li>
+          </ul>
+        </div>
+        <div id="station_infos">
+          <p>Adresse :</p>
+          <p>Nombre de place :</p>
+          <p>Nombre de vélo disponible :</p>
+        </div>
+
+        <form id="formulaire_reserv"> <!-- voir cette ligne -->
+          <fieldset>
+            <legend>Réservez un vélo dans la station séléctionné</legend>
+            <label for="name">Votre nom : </label><input class="saisieText" type="text" name="name" id="name" placeholder="Votre nom" required/><br />
+            <label for="firstname"> Votre prénom : </label><input class="saisieText" type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br />
+            <input type="submit" name="submit" id="reservation" value="Réservez !">
+          </fieldset>
+        </form>
+        <p id="aucunvelo">Impossible de réserver aucun vélo n'est disponible</p>
+      </article>
+
+      <article id="canvas_container">
+        <div id="message_canvas">
+          <p>Signez le formulaire pour validé la réservation :</p>
+        </div>
+        <div id="canvas">
+          <canvas id="canvas_resa" width="200" height="200">Apposez votre signature (si vous voyez ce message, votre navigateur n'est pas à jour)</canvas>
+        </div>
+        <div id="confirm_canvas">
+          <button type="submit" id="submit_canvas">Validez !</button>
+          <button type="reset" id="clear_canvas">Annuler !</button>
+        </div>
+      </article>
+    </section>
+
+    <p id="form_confirm">Vélo réservé à la station <span id="confirm_station">STATION</span> par <span id="confirm_name">NAME</span><br />
+    Temps restant : <span id="timer"></span> avant l'expiration de la session</p>
+    <p id="form_exp">Réservation expirée</p>
+
+
+    <footer>
+
+      Site dévelopé dans le cadre d'une formation de dévellopeur web junior.
+
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script><!-- Requête Ajax -->
+    <script src="js/velo.js"></script>
+    <script src="js/map.js"></script> <!-- Api Leaflet -->
+    <script src="js/canvas.js"></script> <!-- Api html canvas -->
+    <script src="js/slider.js"></script> <!-- Script Slider -->
+    
+  </body>
+</html>

@@ -1,0 +1,803 @@
+/*          */
+/* SOMMAIRE */
+/*          */
+
+/* L14    STYLE PAGE TITRE            */
+/* L58    SLIDER                      */
+/* L157   MAP + FORMULAIRE + CANVAS   */
+/* L267   FORMULAIRE                  */
+/* L392   CANVAS                      */
+/* L509   FOOTER                      */
+/* L523   MEDIAS QUERIES              */
+
+/*                  */
+/* STYLE PAGE TITRE */
+/*                  */
+
+body {
+
+  width  : 100%;
+  margin : 0 auto;
+  padding: 0 auto;
+
+}
+
+header {
+
+  height  : 420px;
+  overflow: hidden;
+  position: relative;
+
+}
+
+img {
+
+  width : 100%;
+  height: auto;
+
+}
+
+h1, h2 {
+
+  font-size: 1.8em;
+
+}
+
+h1 , h3 {
+
+  height         : 60px;
+  justify-content: center;
+  align-items    : center;
+  display        : flex;
+  margin         : 0;
+  background     : linear-gradient(to top, rgba(221,221,221,0.6), rgba(255,255,255));
+
+}
+
+/*          */
+/*  SLIDER  */
+/*          */
+
+.imgslid {
+
+  opacity: 0.6;
+
+}
+
+.slide{
+
+  position          : absolute;
+  left              : 0px;
+  top               : 0px;
+  width             : 100%;
+  height            : 100%;
+  opacity           : 0;
+  z-index           : 1;
+
+  -webkit-transition: opacity 1s;
+  -moz-transition   : opacity 1s;
+  -o-transition     : opacity 1s;
+  transition        : opacity 1s;
+}
+
+.showing {
+
+  opacity: 1;
+  z-index: 2;
+
+}
+
+.imgslid {
+
+  width : 100%;
+  height: 100%;
+
+}
+
+/* CONTROLE SLIDER */
+
+.controls {
+
+  width        : 50px;
+  height       : 50px;
+  border-radius: 25px;
+  background   : rgba(0,0,0,0.5);
+  color        : #fff;
+  border       : none;
+  font-size    : 20px;
+  cursor       : pointer;
+
+}
+
+#bouton_left {
+
+  position: absolute;
+  top     : 45%;
+  left    : 0;
+  z-index : 15;
+
+}
+
+#bouton_right {
+
+  position: absolute;
+  top     : 45%;
+  z-index : 15;
+  right   : 0px;
+
+}
+
+#pause {
+
+  position: absolute;
+  bottom  : 0;
+  right   : 0;
+  z-index : 15;
+
+}
+
+/* TEXT SLID */
+
+.text_slid {
+
+  position        : absolute;
+  top             : 35%;
+  left            : 10%;
+  z-index         : 15;
+  margin          : 0;
+  background-color: rgba(0,0,0,0.7);
+  border-radius   : 10px;
+  width           : 300px;
+  color           : white;
+  padding-left    : 10px;
+
+}
+
+/*                             */
+/*  MAP + FORMULAIRE + CANVAS  */
+/*                             */
+
+#carte_velo {
+
+  width        : 90%;
+  margin-right : auto;
+  margin-left  : auto;
+  display      : flex;
+  flex-wrap    : nowrap;
+  margin-bottom: 50px;
+
+}
+
+#map {
+
+  margin-top: 50px;
+  height    : 550px;
+  width     : 1200px;
+  box-sizing: border-box;
+
+}
+
+#formulaire {
+
+  margin-top      : 50px;
+  width           : 50%;
+  max-width       : 50%;
+  height          : 550px;
+  background-color:#dddddd;
+  box-sizing      : border-box;
+  position        : relative;
+
+}
+
+#container_reserv { /* encart avant l'apparition du formulaire */
+
+  text-align: center;
+
+}
+
+.presentation { /* classe du texte précédant le formulaire */
+
+  padding: 50px;
+
+}
+
+#container_reserv ul {
+
+  padding-left: 0;
+
+}
+
+#container_reserv li {
+
+  font-weight  : normal;
+  font-size    : 16px;
+  list-style   : none;
+  text-align   : left;
+  padding-left : 25px;
+  margin-bottom: 30px;
+  position     : relative;
+
+}
+
+#before_click {
+
+  font-weight: bold;
+  font-size  : 18px;
+  margin-top : 0;
+  color      : #6ea8ce;
+
+}
+
+#marker_vert {
+
+  margin-top: 40px;
+
+}
+
+#marker_vert, #marker_jaune, #marker_rouge{
+
+  display    : flex;
+  align-items: center;
+
+}
+
+.img_marker {
+
+  width : 30px;
+  height: 30px;
+
+}
+
+#station_infos {
+
+  display     : none;
+  margin-top  : 35px;
+  margin-left : 20px;
+  margin-right: 20px;
+
+}
+
+#station_infos p {
+
+  padding-left: 8px;
+
+}
+
+/*              */
+/*  FORMULAIRE  */
+/*              */
+
+#formulaire form { /* le formulaire de réservation */
+
+  display   : none;
+  margin-top: 20px;
+
+}
+
+#formulaire form input {
+
+  margin-top: 20px;
+
+}
+
+
+#name { /* input name du formulaire */
+
+  font-size    : 14px;
+  border       : 2px solid rgb(192, 192, 192);
+  border-radius: 3px;
+  margin-left  : 32px;
+  padding      : 5px 5px 5px 8px;
+  width        : 50%;
+
+}
+
+#firstname { /* input firstname du formulaire */
+
+  font-size    : 14px;
+  border       : 2px solid rgb(192, 192, 192);
+  border-radius: 3px;
+  margin-left  : 5px;
+  padding      : 5px 5px 5px 8px;
+  width        : 50%;
+
+}
+
+#formulaire_reserv {
+
+  display: none;
+  margin : 20px;
+
+
+}
+
+#formulaire_reserv fieldset {
+
+  border: 2px solid rgb(192, 192, 192);
+
+}
+
+#formulaire_reserv legend {
+
+  font-weight: bold;
+  padding    : 0 10px 0 10px;
+  color      : #6ea8ce;
+
+}
+
+#aucunvelo { /* message en cas d'indisponibilité de vélos */
+
+  display     : none;
+  margin-left : 20px;
+  margin-top  : 20px;
+  color       : #ca273b;
+  padding-left: 8px;
+
+}
+
+#reservation { /* input submit du formulaire */
+
+  cursor          : pointer;
+  background-color: white;
+  padding         : 7px 11px 7px 11px;
+  border          : none;
+  border-radius   : 3px;
+  font-size       : 15px;
+  color           : #6ea8ce;
+
+}
+
+#reservation:hover {
+
+  background-color: #6ea8ce;
+  color           : white;
+
+}
+
+#form_confirm { /* message de confirmation de réservation */
+
+  display         : none;
+  background-color: #dddddd;
+  color           : #6ea8ce;
+  padding         : 20px;
+  text-align      : center;
+  margin          : 30px 30px 50px 30px;
+
+}
+
+#confirm_name {
+
+  text-transform: uppercase;
+
+}
+
+#timer { /* compte à rebours */
+
+  color: #ca273b;
+
+}
+
+#form_exp { /* message d'expiration de réservation */
+
+  color           : #ca273b;
+  display         : none;
+  background-color: #dddddd;
+  padding         : 20px;
+  text-align      : center;
+  margin          : 30px 30px 50px 30px;
+
+}
+
+/*        */
+/* CANVAS */
+/*        */
+
+#canvas_container { /* container de présentation + canvas + submit */
+
+  width           : 30%;
+  height          : 550px;
+  margin-top      : 50px;
+  padding         : 10px;
+  background-color: #dddddd;
+  box-sizing      : border-box;
+  display         : flex;
+  flex-direction  : column;
+  justify-content : center;
+  display         : none;
+
+}
+
+#message_canvas { /* consigne expliquant le canvas */
+
+  background-color: #6ea8ce;
+  color           : white;
+  height          : 20%;
+  margin          : 0;
+  box-sizing      : border-box;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+
+}
+
+#message_canvas p {
+
+  padding   : 0 15px 0 15px;
+  text-align: center;
+
+}
+
+#canvas { /* div enveloppant le canvas */
+
+  background-color: #dddddd;
+  box-sizing      : border-box;
+  border-bottom   : 6px solid #dddddd;
+  margin          : 0;
+  width           : 100%;
+  height          : 60%;
+  cursor          : crosshair;
+
+}
+
+#canvas_resa { /* canvas */
+
+  box-sizing      : border-box;
+  display         : block;
+  position        : relative;
+  background-color: white;
+  width           : 100%;
+  height          : 100%;
+
+}
+
+#confirm_canvas { /* boutons submit + clear */
+
+  border-top      : 5px solid #dddddd;
+  height          : 20%;
+  background-color: #dddddd;
+  display         : flex;
+  flex-wrap       : wrap;
+  justify-content : space-between;
+  align-items     : center;
+  margin-bottom   : 0;
+  box-sizing      : border-box;
+
+}
+
+#clear_canvas { /* remise à zéro du canvas */
+
+  cursor          : pointer;
+  padding         : 10px 15px 10px 15px;
+  border          : none;
+  border-radius   : 3px;
+  background-color: white;
+  font-size       : 15px;
+  color           : #6ea8ce;
+
+}
+
+#clear_canvas:hover {
+
+  background-color: #6ea8ce;
+  color           : white;
+
+}
+
+#submit_canvas { /* submit du canvas */
+
+  cursor          : pointer;
+  padding         : 10px 15px 10px 15px;
+  border          : none;
+  border-radius   : 3px;
+  background-color: white;
+  font-size       : 15px;
+  color           : #6ea8ce;
+
+}
+
+#submit_canvas:hover {
+
+  background-color: #6ea8ce;
+  color           : white;
+
+}
+
+/*        */
+/* FOOTER */
+/*        */
+
+footer {
+
+  height          : 50px;
+  align-items     : center;
+  background-color: grey;
+  color           : white;
+  display         : flex;
+  flex-direction  : row;
+  justify-content : space-around;
+  padding         : 5px 20px 0 20px;
+
+}
+
+/*                */
+/* MEDIAS QUERIES */
+/*                */
+
+@media all and (min-width: 1367px) { /* responsive écrans HD (+ de 1367px) */
+
+  /* FORMULAIRE ECRANS HD */
+
+  #form_confirm {
+
+    margin: 30px 0 50px 0;
+
+  }
+
+  #form_exp {
+
+    margin: 30px 0 50px 0;
+
+  }
+
+  /* CANVAS ECRAN HD */
+
+  #canvas_container {
+
+    width: 50%;
+
+  }
+}
+
+@media all and (max-width: 1200px) { /* responsive grands écrans (992px-1200px) */
+
+  /* SLIDER GRANDS ECRANS */
+
+    header {
+
+    height: 300px;
+
+  }
+
+  #bouton_right, #bouton_left {
+
+    top: 37%;
+
+  }
+
+  .text_slid {
+
+    top : 25%;
+    left: 100px;
+
+  }
+
+  /* CANVAS GRANDS ECRANS */
+
+  #canvas_container {
+
+    width: 80%;
+
+  }
+}
+
+
+@media all and (max-width: 992px) { /* responsive écrans tablette (768px-992px) */
+
+  /* SLIDER TABLETTE */
+
+  h2 {
+
+    font-size: 1.6em;
+
+  }
+
+  header {
+
+    height: 250px;
+
+  }
+
+  .controls {
+
+    width        : 40px;
+    height       : 40px;
+    border-radius: 20px;
+
+  }
+
+  .text_slid {
+
+    top  : 20%;
+    left : 100px;
+    width: 250px;
+
+  }
+
+  /* MAP TABLETTE */
+
+  #map {
+
+    width: 60%;
+
+  }
+
+  #carte_velo {
+
+    flex-wrap      : wrap;
+    justify-content: center;
+
+  }
+
+  #formulaire {
+
+    width    : 40%;
+    height   : auto;
+    max-width: 60%;
+
+  }
+
+  .presentation {
+
+    padding: 40px 30px 30px 30px;
+
+  }
+
+  #container_reserv li {
+
+    text-align: center;
+
+  }
+
+  /* CANVAS TABLETTE */
+
+  #canvas_container {
+
+    width: 60%;
+
+  }
+}
+
+@media all and (max-width: 768px) { /* responsive grands smartphones (576px-768px) */
+
+  /* SLIDER GRANDS SMARTPHONES */
+
+  h2 {
+
+    font-size: 1.4em;
+
+  }
+
+  header {
+
+    height: 200px;
+
+  }
+
+  .text_slid {
+
+    top : 20%;
+    left: 100px;
+
+  }
+
+  /* MAP GRANDS SMARTPHONES */
+
+  #map {
+
+    width: 100%;
+
+  }
+
+  #formulaire {
+
+    width    : 100%;
+    max-width: 100%;
+
+  }
+
+  /* CANVAS GRANDS SMARTPHONES */
+
+  #canvas_container {
+
+    width    : 100%;
+    max-width: 100%;
+
+  }
+}
+
+@media all and (max-width: 576px) { /* responsive smartphones (320px-576px) */
+
+  /* SLIDER SMARTPHONES */
+
+  header {
+
+    height          : 160px;
+    background-color: #cfcfcf;
+
+  }
+
+  h1, h3 {
+
+    font-size : 1em;
+    text-align: center;
+
+  }
+
+  h2 {
+
+    font-size: 1.2em;
+    margin   : 0.5em;
+
+  }
+
+  .imgslid {
+
+    display: none;
+
+  }
+
+  .controls {
+
+    width        : 34px;
+    height       : 34px;
+    border-radius: 16px;
+
+  }
+
+  .text_slid {
+
+    width: 200px;
+    top  : 20%;
+    left : 15%;
+
+  }
+
+  /* MAP SMARTPHONES */
+
+  #map {
+
+    height: 300px;
+
+  }
+
+  /* FORMULAIRE SMARTPHONES */
+
+  #formulaire_reserv legend {
+
+    padding: 0 10px 10px 10px;
+
+  }
+
+  #formulaire form input {
+
+    margin-top: 0;
+
+  }
+
+  #formulaire form label {
+
+    margin-left: 5px;
+
+  }
+
+  #name {
+
+    margin: 0 0 15px 5px;
+    width : 80%;
+
+  }
+
+  #firstname {
+
+    margin: 0 0 20px 5px;
+    width : 80%;
+
+  }
+
+  #reservation {
+
+    margin: 0 0 10px 5px;
+
+  }
+}
+
